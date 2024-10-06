@@ -1,0 +1,352 @@
+/* Don't edit this file in the `/themes/` folder
+Instead, create a folder in _your_ repo at `/assets/scss` (if it doesn't exist already)
+and paste a duplicate of this file there
+_Then_ you can edit it
+Otherwise it could be overwritten if you pull theme updates
+You can (and should) delete this comment in _your_ version of this file
+to avoid future confusion */
+
+@import "variables";
+// Custom SCSS/CSS is imported at the end of this file (see last line), so that any custom style rules you specify will take precedence over the theme defaults. This takes care of the "last rule" effect in CSS/SCSS, where if an element/id/class is mentioned twice, the mention lower down the page will "win" if the rules conflict. For example:
+
+// p { font-family: Arial; }
+// p { font-family: Courier; }
+// ^ Your paragraph fonts will be in Courier thanks to the "last rule wins" principle. */
+
+// Layout and fonts
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+a,
+div,
+span,
+blockquote,
+figure,
+img,
+svg,
+ul,
+pre,
+form,
+input,
+label {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+h1,
+label,
+label a {
+    font-size: ($increment * 6);
+    margin: ($increment * 2) 0 $increment;
+}
+
+h2,
+h2 a {
+    font-size: ($increment * 4.5);
+}
+
+h3 {
+    font-size: ($increment * 3);
+}
+
+h4 {
+    font-size: ($increment * 2);
+}
+
+p,
+a,
+div,
+span,
+blockquote,
+ul,
+code,
+pre,
+input,
+select,
+button {
+    font-size: ($increment * 2);
+}
+
+body,
+a:link {
+    color: $color-text;
+    background-color: $color-background;
+}
+
+#overflow {
+    overflow-x: hidden;
+}
+
+#wrapper {
+    margin: 0 ($increment * 18) ($increment * 6);
+    max-width: $wrapper-max-width;
+}
+
+header {
+    margin: 0 -500%;
+    padding: 0 500%;
+}
+
+#logo,
+footer {
+    margin-top: ($increment * 6);
+}
+
+a:visited {
+    color: $color-gray;
+}
+
+a:hover {
+    color: $color-accent;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+p,
+li,
+#byline,
+pre {
+    line-height: 1.5;
+    margin-bottom: ($increment * 2);
+}
+
+aside {
+    border: $increment solid $color-accent;
+    border-radius: ($increment * 2.5);
+    padding: ($increment * 4) ($increment * 4) ($increment * 2);
+    margin-bottom: ($increment * 2);
+}
+
+table,
+td,
+th {
+    border: 1px solid $color-accent;
+}
+
+th,
+td {
+    padding: $increment;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: $increment;
+    text-align: left;
+}
+
+#toc h2 {
+    // Table of contents headings
+    margin-bottom: ($increment * 2);
+}
+
+#description,
+#signup-cta {
+    font-style: italic;
+}
+
+// List styles
+// Remove default bullets
+ul {
+    list-style: none;
+}
+
+// Add pure CSS checkmark bullet in theme accent colour
+ul li {
+    &:before {
+        content: "";
+        display: inline-block;
+        height: 14px;
+        width: 7px;
+        transform: rotate(45deg);
+        border-bottom: 3px solid $color-accent;
+        border-right: 3px solid $color-accent;
+        margin-right: $increment * 1.3;
+    }
+}
+
+#TableOfContents ol {
+    padding-inline-start: 0;
+    list-style-type:none;
+}
+
+#TableOfContents ol ol {
+    padding-inline-start: $increment * 2;
+}
+
+#TableOfContents li {
+    margin-top: ($increment * 2);
+}
+
+#TableOfContents ol ol li {
+    &:before {
+        content: "";
+        display: inline-block;
+        height: 14px;
+        width: 7px;
+        transform: rotate(45deg);
+        border-bottom: 3px solid $color-accent;
+        border-right: 3px solid $color-accent;
+        margin-right: $increment * 1.3;
+    }
+}
+
+// Remove checkmark from footer links
+footer li {
+    &:before {
+        margin: 0;
+        width: 0;
+        height: 0;
+        border: 0;
+    }
+}
+
+// Add pure CSS arrow indicator to active footer link
+footer li.active {
+    &:before {
+        width: 0;
+        height: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 8px solid $color-accent;
+        transform: rotate(0deg);
+        margin-right: $increment;
+    }
+}
+
+code {
+    color: $color-accent;
+    font-weight: bold;
+}
+
+pre {
+    -moz-tab-size: 2; // Firefox 4+
+    -o-tab-size: 2; // Opera 11.5 & 12.1 only
+    tab-size: 2; // Chrome 21+, Safari 6.1+, Opera 15+
+    overflow: auto;
+}
+
+blockquote {
+    border-left: $increment solid $color-accent;
+    padding-left: ($increment * 2);
+}
+
+// Email signup form
+label {
+    font-weight: bold;
+    display: block;
+}
+
+#signup-cta {
+    margin-bottom: $increment;
+}
+
+input,
+button {
+    height: ($increment * 4);
+    border: 1px solid $color-accent;
+    outline: none;
+    box-sizing: border-box;
+    -webkit-border-radius: $increment;
+    -moz-border-radius: $increment;
+    border-radius: $increment;
+    margin: 0 0 $increment;
+}
+
+input {
+    color: $color-background;
+    background-color: $color-accent;
+    padding: 0 $increment;
+    width: 290px;
+}
+
+::placeholder {
+    color: $color-background;
+    font-style: italic;
+}
+
+button {
+    color: $color-accent;
+    background-color: $color-background;
+    padding: 0 ($increment * 2);
+    transition: all 0.6s ease-in-out 0s;
+}
+
+button:hover,
+select {
+    background-color: $color-gray;
+    cursor: pointer;
+}
+
+// Media queries
+@media (max-width: 1060px) {
+    #wrapper {
+        margin: 0 ($increment * 4) ($increment * 8);
+    }
+    // For sufficient tap target sizing
+    #logo,
+    footer {
+        margin: ($increment * 3) 0 $increment;
+    }
+
+    input {
+        width: 100%;
+        margin-bottom: $increment;
+    }
+
+    button {
+        width: 100%;
+        margin: 0 0 $increment;
+    }
+}
+
+@media (max-width: 530px) {
+    #wrapper {
+        margin: 0 ($increment * 2) ($increment * 4);
+    }
+
+    h1,
+    label {
+        font-size: ($increment * 4.2);
+        margin-top: $increment;
+    }
+
+    h2,
+    h2 a {
+        font-size: ($increment * 3.8);
+    }
+
+    h3 {
+        font-size: ($increment * 2.6);
+    }
+
+    h2,
+    h3 {
+        margin-top: ($increment * 2);
+    }
+
+    aside h3,
+    #toc h2 {
+        margin-top: 0;
+    }
+
+    h4 {
+        font-size: ($increment * 2);
+    }
+
+    aside {
+        padding: $increment * 2;
+    }
+
+}
+
+@import "custom";

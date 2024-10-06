@@ -1,0 +1,23 @@
+{{ define "main" }}
+
+	<h1>
+		{{ .Title | markdownify }}
+	</h1>
+
+	{{ with .Description }}
+		<p id="description">
+			{{ . | markdownify }}
+		</p>
+	{{ end }}
+
+	<div>
+		{{ range where .Pages ".Params.noindex" "!=" true }}
+			{{ .Render "li" }}
+		{{ end }}   
+	</div>
+	
+{{ end }}
+
+{{ define "subscribe"}}
+    {{- partial "subscribe.html" . -}}
+{{ end }}

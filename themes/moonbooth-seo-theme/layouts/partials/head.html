@@ -1,0 +1,104 @@
+<head>
+	{{/* Optional Google gtag.js script for Google Analytics 3 (a.k.a. Universal Analytics) or Google Analytics 4--works with either.
+		
+	The code below will only render on the production version of your site, not on localhost---otherwise it would inflate your page metrics. If you want to see the GA code in your test environment, you can do so with this command: `hugo server --environment production`. 
+	
+	A second condition also needs to be met for the GA code to render: you need to have a parameter called `ga_id` in the `[params]` section of your config file. The value of `ga_id` should be a string containing the UA ID you get from your Google Analytics dashboard e.g. `UA-000000-2`. So, for example, in `config.toml`, in the `[params]` section, you'd have: `ga_id = "UA-000000-2"` (but with your UA ID, of course).  */}}
+	{{ if hugo.IsProduction }}
+		{{ with .Site.Params.ga_id }} {{/* If `ga_id` is not set in the config `[params]`, the below GA code will not render */}}
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.Params.ga_id}}"></script>
+			<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', '{{ site.Params.ga_id }}');
+			</script>
+		{{ end }}
+	{{ end }} {{/* End optional Google Analytics script */}}
+
+	<meta charset="utf-8">
+	{{ hugo.Generator }}
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	{{/* SEO titles & descriptions */}}
+	{{ if .IsHome }} {{/* For the homepage, including its paginations */}}
+		<title>
+			{{ site.Params.seoTitle }} {{/* Generate SEO headline from `seoTitle` param in config */}}
+		</title>
+		<meta name="description" content="{{ site.Params.description }}">{{/* Generate meta description from `description` param in config */}}
+
+	{{ else }} {{/* For non-homepage pages */}}
+		<title>
+			{{ if .Params.seoTitle }}{{ .Params.seoTitle }}{{ else }}{{ .Title }}{{ end }} {{/* Generate SEO headline from `seoTitle` param in post YAML (fall back to `title` param if `seoTitle` param not filled out) */}}
+		</title>
+		<meta name="description" content="{{ .Description }}"> {{/* Generate meta description from `description` param in config */}}
+	{{ end }}
+
+	{{/* SEO noindex: used to block the "page not found" and "thank you for signing up" pages from appearing on Google */}}
+	{{ if .Params.noindex }} {{/* If the `noindex` parameter has been set to `true` ... */}}
+		<meta name="robots" content="noindex" /> {{/* ... block the page from appearing on Google */}}
+	{{ else }}
+		<meta name="robots" content="noarchive"> {{/* Otherwise, fall back to `noarchive`, which allows the content to be indexed, but not cached by Google and other search engines. This is useful if you don't want old versions of your site visible on Google. This will also stop your site from appearing in the Wayback Machine (archive.org), for better or for worse. */}}
+	{{ end }}
+
+	{{/* SEO canonicals: helps Google understand your site better when using marketing campaign tagging etc */}}
+	<link rel="canonical" href="{{ .Permalink }}" />
+
+	{{/* Facebook Open Graph and Twitter Cards */}}
+	{{ if (fileExists "static/opengraph.png") }}
+		{{ if .IsHome }} {{/* For the homepage, including its paginations */}}
+			<meta property="og:title" content="{{ site.Title }}" />
+			<meta property="og:description" content="{{ site.Params.description }}" />
+			<meta property="og:type" content="website" />
+		{{ else if .IsPage }} {{/* For posts and pages */}}
+			<meta property="og:title" content="{{ .Params.title }}" />
+			<meta property="og:description" content="{{ .Params.description }}" />
+			<meta property="og:type" content="article" />
+		{{ else }} {{/* For non-homepage indexes such as /blog/ */}}
+			<meta property="og:title" content="{{ .Params.title }}" />
+			<meta property="og:description" content="{{ .Params.description }}" />
+			<meta property="og:type" content="website" />
+		{{ end }}
+		<meta name="twitter:card" content="summary_large_image"> {{/* All other Twitter markup is the same as, and therefore relies on, OpenGraph */}}
+		<meta property="og:site_name" content="{{ site.Title }}" />
+		<meta property="og:url" content="{{ .Permalink }}" />
+		<meta property="og:image" content="{{ .Site.BaseURL }}opengraph.png" />
+		<meta property="og:image:secure_url" content="{{ .Site.BaseURL }}opengraph.png" />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="{{ site.Title }} logo" />
+	{{ end }}
+
+	{{/* RSS: People who use RSS readers to consume content will see when you publish new blog posts */}}
+	<link rel="alternate" type="application/rss+xml" title="{{ site.Params.rssTitle }}" href="{{ .Site.BaseURL }}{{ site.Params.blogSection }}/index.xml">
+
+	{{/* Icons */}}
+	<link rel="icon" href="/favicon.svg">
+	<link rel="mask-icon" href="/mask-icon.svg" color="{{ site.Params.color }}">
+	<meta name="theme-color" content="{{ site.Params.color }}">
+
+	{{/* Theme CSS (uses SCSS) */}}
+	{{ $style := resources.Get "scss/theme.scss" | toCSS | minify }}
+	<link rel="stylesheet" href={{ $style.Permalink }}>
+
+	{{/* Custom JavaScript files go here */}}
+	{{ if (fileExists "static/scripts/custom.js") }}
+        <script src="/scripts/custom.js"></script>
+    {{ end }}
+
+	{{ with .Site.Params.scripts }}
+		{{ range . }}
+			<script src="{{ . }}"></script>
+		{{ end }}   
+	{{ end }}
+	{{/* end of custom JavaScript files */}}
+
+	{{/* Optional Netlify CMS script */}}
+	{{ if .IsHome }} {{/* For the homepage, including its paginations */}}
+		{{ with .Site.Params.netlify_cms }} {{/* If `netlify_cms` is not set (e.g. to `true`) in the config `[params]`, the below Netlify CMS code will not render */}}
+			<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+		{{ end }}
+	{{ end }}
+</head>

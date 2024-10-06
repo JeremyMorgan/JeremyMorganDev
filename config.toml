@@ -1,0 +1,35 @@
+baseURL = "https://www.jeremymorgan.dev"
+languageCode = "en-us"
+title = "AI Powered Digital Marketing"
+theme = "moonbooth-seo-theme"
+enableRobotsTXT = true
+disableKinds = ['taxonomy', 'term']
+[params]
+
+	isLive = "false"
+	blogFooterLinkText = "Introduction to my Blog"
+  	blogSection = "introduction"
+	blogSectionLinkUrl = "introduction/"
+
+	color = "#8CF67B"
+	dateMarkedUpdated = true
+	description = "Learn more about AI powered digital marketing here"
+	rssTitle = "Digital MarketingBlog | jeremymorgan.dev"
+	seoTitle = "AI Powered Digital Marketing and SEO Blog"
+
+	
+
+	ga_id = ""
+
+[markup]
+	[markup.goldmark.renderer]
+		unsafe = true
+	[markup.tableOfContents]
+		endLevel = 2
+		ordered = false
+		startLevel = 2
+	[markup.highlight]
+
+    tabWidth = 4
+[minify]
+	disableSVG = true

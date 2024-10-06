@@ -1,0 +1,33 @@
+<footer>
+	<ul>
+		{{/* The code below ensures the blog index does not have a recursive link (a link to itself). */}}	
+		{{/* Begin blog link, w/ non-recursive link logic */}}	
+		{{ if and (eq .Section site.Params.blogSection) (.IsNode) }}
+			<li class="active">
+				{{ site.Params.blogFooterLinkText }}
+			</li>
+		{{ else }}
+			<li>
+				<a href="/{{ site.Params.blogSection }}/">
+					{{ site.Params.blogFooterLinkText }}
+				</a>
+			</li>
+		{{ end }}
+        {{/* end blog link logic */}}
+
+		{{/* The code below ensures the About page does not have a recursive link (a link to itself). */}}
+		{{ with .File }}
+			{{ if eq .Path "about.md" }}
+				<li class="active">
+					About
+				</li>
+			{{ else }}
+				<li>
+					<a href="/about/">
+						About
+					</a>
+				</li>
+			{{ end }}
+		{{ end }}
+	</ul>
+</footer>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+{{- partial "head.html" . -}}
+
+    <body>
+        
+        <div id="overflow">
+            
+            <div id="wrapper">
+                
+                {{- partial "header.html" . -}}
+                
+                <main>
+                    {{- block "main" . -}}
+                    {{- end -}}
+                </main>
+                
+                {{- block "subscribe" . -}}
+                {{- end }}
+                
+                {{- partial "footer.html" . -}}
+            
+            </div>{{/* end #wrapper */}}
+        
+        </div>{{/* end #overflow */}}
+
+        {{/* Optional Netlify CMS script */}}
+	{{ if .IsHome }} {{/* For the homepage, including its paginations */}}
+        {{ with .Site.Params.netlify_cms }} {{/* If `netlify_cms` is not set (e.g. to `true`) in the config `[params]`, the below Netlify CMS code will not render */}}
+            <script>
+                if (window.netlifyIdentity) {
+                window.netlifyIdentity.on("init", user => {
+                    if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
+                    }
+                });
+                }
+            </script>
+        {{ end }}
+    {{ end }}
+
+    </body>
+
+</html>

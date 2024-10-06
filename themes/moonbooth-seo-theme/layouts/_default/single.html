@@ -1,0 +1,52 @@
+
+{{ define "main" }}
+
+	<h1>
+		{{ .Title | markdownify }}
+	</h1>
+
+	{{ with .Description }}
+		<p id="description">
+			{{ . | markdownify }}
+		</p>
+	{{ end }}
+
+	<div id="byline">
+		{{ with .Params.authors }}
+			{{ range . }}
+				{{ . }}
+			{{ end }}
+		{{ end }}
+		<br>
+
+		{{ with site.Params.dateMarkedUpdated }}
+			Updated
+		{{ end }}
+
+		{{ .Date.Format "January 2, 2006" }}
+
+		{{ if .Params.version }}
+			</br>Tested with {{ title .Section }} version {{ .Params.version }}
+		{{ end }}
+	</div>
+
+	{{ if eq .Params.tableOfContents true  }}
+		<aside id="toc">
+			<h2>
+				On this page
+			</h2>
+			{{ .TableOfContents }}
+		</aside>
+	{{ end }}
+
+	{{ with .Params.img }}
+		<img src="{{ $.Site.BaseURL }}img/{{ . }}">
+	{{ end }}
+
+	{{ .Content }}
+
+	{{ end }}
+
+{{ define "subscribe"}}
+	{{- partial "subscribe.html" . -}}
+{{ end }}

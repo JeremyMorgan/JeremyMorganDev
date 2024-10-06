@@ -1,0 +1,15 @@
+<div class="li">
+	
+	<h2>
+		<a href="{{ .Permalink }}">
+			{{ .Title | markdownify }}
+		</a>
+	</h2>
+
+	<p>
+		{{ with .Description }}
+			{{ . | markdownify }}
+		{{ end }}
+	
+	</p>
+</div>

@@ -1,0 +1,11 @@
+<header>
+    {{/* The code below ensures the site logo on the homepage is not a recursive link. See https://moonbooth.com/hugo/recursive-links/ for more */}}
+    {{ if .IsHome }}
+    {{/* For the homepage (including paginated versions of the homepage) */}}
+        <img id="logo" src="/images/ai-powered-digital-marketing-seo.png" alt="{{ .Site.Title }} logo">
+    {{/* Show the site logo */}}
+    {{ else }}
+    {{/* For non-homepage pages */}}
+        <a href="/"><img id="logo" src="/images/ai-powered-digital-marketing-seo.png" alt="{{ .Site.Title }} logo"></a>{{/* Show the site logo as a link back to the homepage */}}
+    {{ end }}
+</header>
